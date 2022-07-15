@@ -1,0 +1,9 @@
+{
+	"name": "AzureDatafactory-testres-1",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3996da31-d017-4500-ae1b-154c211a3898",
+		"tenantId": "e0793d39-0939-496d-b129-198edd916feb"
+	}
+}

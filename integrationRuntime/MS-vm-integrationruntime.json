@@ -1,0 +1,6 @@
+{
+	"name": "MS-vm-integrationruntime",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
