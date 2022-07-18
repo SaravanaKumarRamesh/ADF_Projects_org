@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADF-AzureDataengg-Dev"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"Azblb_saravana__linkedservice_input_connectionString": {
+			"value": ""
+		},
+		"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
+			"value": "/subscriptions/e28292ad-5166-4e02-8b60-16a2151d18a5/resourceGroups/AzureDataEngg_Testresource1/providers/Microsoft.Sql/servers/azure-sql-adf-test"
+		},
+		"Azuresqldatabase_endpoint_properties_groupId": {
+			"value": "sqlServer"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
