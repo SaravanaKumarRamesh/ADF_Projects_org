@@ -1,0 +1,7 @@
+{
+	"name": "Azure-Selfhosted-IR",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Self hosted IR created for azure sql databases"
+	}
+}
