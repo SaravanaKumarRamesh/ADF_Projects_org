@@ -1,0 +1,7 @@
+{
+	"name": "Azuresqldatabase_endpoint",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/e28292ad-5166-4e02-8b60-16a2151d18a5/resourceGroups/AzureDataEngg_Testresource1/providers/Microsoft.Sql/servers/azure-sql-adf-test",
+		"groupId": "sqlServer"
+	}
+}
