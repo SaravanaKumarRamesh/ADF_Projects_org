@@ -1,0 +1,26 @@
+{
+	"name": "Azblb_saravana_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azblb_saravana__linkedservice_input",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().Filename",
+					"type": "Expression"
+				},
+				"folderPath": "input",
+				"container": "azure-adf-finaldata-input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
