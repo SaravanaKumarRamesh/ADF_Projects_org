@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
+		"crickinfo_weblinkedservice_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stats.espncricinfo.com/ci/engine/stats/"
+		},
 		"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e28292ad-5166-4e02-8b60-16a2151d18a5/resourceGroups/AzureDataEngg_Testresource1/providers/Microsoft.Sql/servers/azure-sql-adf-test"
@@ -22,10 +26,6 @@
 		"Azuresqldatabase_endpoint_properties_groupId": {
 			"type": "string",
 			"defaultValue": "sqlServer"
-		},
-		"crickinfo_weblinkedservice_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://stats.espncricinfo.com/ci/engine/stats/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -60,14 +60,14 @@
 					"AzureSqlDatabase1_connectionString": {
 						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
 					},
+					"crickinfo_weblinkedservice_properties_typeProperties_url": {
+						"value": "[parameters('crickinfo_weblinkedservice_properties_typeProperties_url')]"
+					},
 					"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
 						"value": "[parameters('Azuresqldatabase_endpoint_properties_privateLinkResourceId')]"
 					},
 					"Azuresqldatabase_endpoint_properties_groupId": {
 						"value": "[parameters('Azuresqldatabase_endpoint_properties_groupId')]"
-					},
-					"crickinfo_weblinkedservice_properties_typeProperties_url": {
-						"value": "[parameters('crickinfo_weblinkedservice_properties_typeProperties_url')]"
 					}
 				}
 			},

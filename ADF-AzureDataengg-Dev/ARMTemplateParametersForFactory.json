@@ -11,14 +11,14 @@
 		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
+		"crickinfo_weblinkedservice_properties_typeProperties_url": {
+			"value": "https://stats.espncricinfo.com/ci/engine/stats/"
+		},
 		"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
 			"value": "/subscriptions/e28292ad-5166-4e02-8b60-16a2151d18a5/resourceGroups/AzureDataEngg_Testresource1/providers/Microsoft.Sql/servers/azure-sql-adf-test"
 		},
 		"Azuresqldatabase_endpoint_properties_groupId": {
 			"value": "sqlServer"
-		},
-		"crickinfo_weblinkedservice_properties_typeProperties_url": {
-			"value": "https://stats.espncricinfo.com/ci/engine/stats/"
 		}
 	}
 }
