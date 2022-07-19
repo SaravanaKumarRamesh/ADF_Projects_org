@@ -23,6 +23,10 @@
 			"type": "string",
 			"defaultValue": "sqlServer"
 		},
+		"crickinfo_weblinkedservice_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stats.espncricinfo.com/ci/engine/stats/"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -61,6 +65,9 @@
 					},
 					"Azuresqldatabase_endpoint_properties_groupId": {
 						"value": "[parameters('Azuresqldatabase_endpoint_properties_groupId')]"
+					},
+					"crickinfo_weblinkedservice_properties_typeProperties_url": {
+						"value": "[parameters('crickinfo_weblinkedservice_properties_typeProperties_url')]"
 					}
 				}
 			},
