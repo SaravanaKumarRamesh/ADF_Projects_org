@@ -5,12 +5,21 @@
 			"referenceName": "crickinfo_weblinkedservice",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Page": {
+				"type": "string",
+				"defaultValue": "1"
+			}
+		},
 		"annotations": [],
 		"type": "WebTable",
 		"schema": [],
 		"typeProperties": {
 			"index": 0,
-			"path": "index.html?class=1;template=results;type=batting"
+			"path": {
+				"value": "@concat('index.html?class=1;page=',dataset().Page,';team=6;template=results;type=batting')",
+				"type": "Expression"
+			}
 		}
 	}
 }

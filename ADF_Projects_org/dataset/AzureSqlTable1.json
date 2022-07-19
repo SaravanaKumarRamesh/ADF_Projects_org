@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Finaldata"
+			"table": "Crickinfo_webscrap_data"
 		}
 	}
 }
