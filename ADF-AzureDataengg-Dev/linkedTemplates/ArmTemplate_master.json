@@ -7,13 +7,13 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "ADF-AzureDataengg-Dev"
 		},
-		"AzureSqlDatabase1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
-		},
 		"Azblb_saravana__linkedservice_input_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Azblb_saravana__linkedservice_input'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
 		"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
 			"type": "string",

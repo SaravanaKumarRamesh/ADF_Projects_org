@@ -5,10 +5,10 @@
 		"factoryName": {
 			"value": "ADF-AzureDataengg-Dev"
 		},
-		"AzureSqlDatabase1_connectionString": {
+		"Azblb_saravana__linkedservice_input_connectionString": {
 			"value": ""
 		},
-		"Azblb_saravana__linkedservice_input_connectionString": {
+		"AzureSqlDatabase1_connectionString": {
 			"value": ""
 		},
 		"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
