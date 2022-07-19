@@ -1,0 +1,16 @@
+{
+	"name": "WebTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "crickinfo_weblinkedservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "WebTable",
+		"schema": [],
+		"typeProperties": {
+			"index": 0,
+			"path": "index.html?class=1;template=results;type=batting"
+		}
+	}
+}

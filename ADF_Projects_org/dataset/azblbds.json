@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Finaldata.csv",
+				"fileName": "webtable.csv",
 				"folderPath": "Input",
 				"container": "azure-adf-finaldata-input"
 			},
