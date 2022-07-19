@@ -5,12 +5,20 @@
 			"referenceName": "Azblb_saravana__linkedservice_input",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Filename": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "webtable.csv",
+				"fileName": {
+					"value": "@concat('Crickinfo_page',dataset().Filename,'.csv')",
+					"type": "Expression"
+				},
 				"folderPath": "Input",
 				"container": "azure-adf-finaldata-input"
 			},
