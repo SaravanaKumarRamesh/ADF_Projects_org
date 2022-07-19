@@ -1,0 +1,15 @@
+{
+	"name": "crickinfo_weblinkedservice",
+	"properties": {
+		"annotations": [],
+		"type": "Web",
+		"typeProperties": {
+			"url": "https://stats.espncricinfo.com/ci/engine/stats/index.html?class=3;template=results;type=batting",
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "MS-selfhosted-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
