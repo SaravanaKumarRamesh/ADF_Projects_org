@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "Web",
 		"typeProperties": {
-			"url": "https://stats.espncricinfo.com/ci/engine/stats/index.html?class=3;template=results;type=batting",
+			"url": "https://stats.espncricinfo.com/ci/engine/stats/index.html?class=3;template=results;type=batting;wrappertype=print",
 			"authenticationType": "Anonymous"
 		},
 		"connectVia": {
