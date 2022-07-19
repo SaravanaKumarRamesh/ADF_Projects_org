@@ -263,13 +263,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Crickinfo_webScrapping')]",
+			"name": "[concat(parameters('factoryName'), '/Crickinfo_webScrapping_page_pipe')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Set variable1",
+						"name": "Pagenumber",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
@@ -277,7 +277,12 @@
 							"variableName": "Page",
 							"value": [
 								"1",
-								"2"
+								"2",
+								"3",
+								"4",
+								"5",
+								"6",
+								"7"
 							]
 						}
 					},
@@ -286,7 +291,7 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Set variable1",
+								"activity": "Pagenumber",
 								"dependencyConditions": [
 									"Succeeded"
 								]
