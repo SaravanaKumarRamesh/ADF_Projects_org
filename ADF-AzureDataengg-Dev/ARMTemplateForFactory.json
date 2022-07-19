@@ -170,6 +170,7 @@
 										},
 										"sink": {
 											"type": "AzureSqlSink",
+											"preCopyScript": "TRUNCATE TABLE Crickinfo_webscrap_data",
 											"writeBehavior": "insert",
 											"sqlWriterUseTableLock": false,
 											"tableOption": "autoCreate",
