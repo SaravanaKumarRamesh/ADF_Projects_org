@@ -7,7 +7,7 @@
 				"type": "SetVariable",
 				"dependsOn": [
 					{
-						"activity": "Class in PL",
+						"activity": "Class In PL",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -183,12 +183,13 @@
 				}
 			},
 			{
-				"name": "Class in PL",
+				"name": "Class In PL",
+				"description": "Class Number from the Class Pipeline",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "Class_in_PL",
+					"variableName": "Class_from_PL",
 					"value": {
 						"value": "@variables('Class')",
 						"type": "Expression"
@@ -205,6 +206,9 @@
 			},
 			"Class_in_PL": {
 				"type": "String"
+			},
+			"Class_from_PL": {
+				"type": "Array"
 			}
 		},
 		"annotations": []
