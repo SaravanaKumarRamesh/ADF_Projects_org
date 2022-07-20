@@ -1,5 +1,5 @@
 {
-	"name": "Crickinfo_WS_Class_PP",
+	"name": "Crick_WS_PP",
 	"properties": {
 		"activities": [
 			{
@@ -42,10 +42,16 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "Crickinfo_webScrapping_page_pipe",
+									"referenceName": "Crick_WS_CP",
 									"type": "PipelineReference"
 								},
-								"waitOnCompletion": true
+								"waitOnCompletion": true,
+								"parameters": {
+									"Class_CP": {
+										"value": "@item()",
+										"type": "Expression"
+									}
+								}
 							}
 						}
 					]
@@ -57,6 +63,12 @@
 				"type": "Array"
 			},
 			"Class_in_PL": {
+				"type": "String"
+			},
+			"Class_from_PL": {
+				"type": "Array"
+			},
+			"Class_val_from_PP-CP": {
 				"type": "String"
 			}
 		},
