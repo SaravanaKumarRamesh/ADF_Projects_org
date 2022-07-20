@@ -33,7 +33,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/Crickinfo_webScrapping_page_pipe')]",
+			"name": "[concat(parameters('factoryName'), '/Crick_WS_CP')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -43,9 +43,9 @@
 						"type": "SetVariable",
 						"dependsOn": [
 							{
-								"activity": "Class in PL",
+								"activity": "Class In PL",
 								"dependencyConditions": [
-									"Skipped"
+									"Succeeded"
 								]
 							}
 						],
@@ -129,7 +129,7 @@
 													"type": "Expression"
 												},
 												"class": {
-													"value": "@variables('Class_in_PL')",
+													"value": "@variables('Class_val_from_PP-CP')",
 													"type": "Expression"
 												}
 											}
@@ -141,7 +141,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"Filename": {
-													"value": "@item()",
+													"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'Page=',item())",
 													"type": "Expression"
 												}
 											}
@@ -202,7 +202,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"Filename": {
-													"value": "@item()",
+													"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'Page=',item())",
 													"type": "Expression"
 												}
 											}
@@ -220,14 +220,15 @@
 						}
 					},
 					{
-						"name": "Class in PL",
+						"name": "Class In PL",
+						"description": "Class Number from the Class Pipeline",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
-							"variableName": "Class_in_PL",
+							"variableName": "Class_val_from_PP-CP",
 							"value": {
-								"value": "@variables('Class')",
+								"value": "@pipeline().parameters.Class_CP",
 								"type": "Expression"
 							}
 						}
@@ -237,6 +238,11 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
+				"parameters": {
+					"Class_CP": {
+						"type": "string"
+					}
+				},
 				"variables": {
 					"Page": {
 						"type": "Array"
@@ -245,6 +251,12 @@
 						"type": "Array"
 					},
 					"Class_in_PL": {
+						"type": "String"
+					},
+					"Class_from_PL": {
+						"type": "Array"
+					},
+					"Class_val_from_PP-CP": {
 						"type": "String"
 					}
 				},
@@ -491,7 +503,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Crickinfo_WS_Class_PP')]",
+			"name": "[concat(parameters('factoryName'), '/Crick_WS_PP')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -517,7 +529,7 @@
 							{
 								"activity": "Class of WS",
 								"dependencyConditions": [
-									"Skipped"
+									"Succeeded"
 								]
 							}
 						],
@@ -536,11 +548,16 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "Crickinfo_webScrapping_page_pipe",
+											"referenceName": "Crick_WS_CP",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
-										"parameters": {}
+										"parameters": {
+											"Class_CP": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
 									}
 								}
 							]
@@ -557,12 +574,18 @@
 					},
 					"Class_in_PL": {
 						"type": "String"
+					},
+					"Class_from_PL": {
+						"type": "Array"
+					},
+					"Class_val_from_PP-CP": {
+						"type": "String"
 					}
 				},
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Crickinfo_webScrapping_page_pipe')]"
+				"[concat(variables('factoryId'), '/pipelines/Crick_WS_CP')]"
 			]
 		}
 	]
