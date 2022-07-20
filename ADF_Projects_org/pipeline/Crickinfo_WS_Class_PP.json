@@ -23,7 +23,7 @@
 					{
 						"activity": "Class of WS",
 						"dependencyConditions": [
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],

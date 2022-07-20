@@ -9,7 +9,7 @@
 					{
 						"activity": "Class in PL",
 						"dependencyConditions": [
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],
