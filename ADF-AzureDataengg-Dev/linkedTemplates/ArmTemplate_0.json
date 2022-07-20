@@ -205,6 +205,10 @@
 					"Page": {
 						"type": "string",
 						"defaultValue": "1"
+					},
+					"class": {
+						"type": "string",
+						"defaultValue": "1"
 					}
 				},
 				"annotations": [],
@@ -213,7 +217,7 @@
 				"typeProperties": {
 					"index": 0,
 					"path": {
-						"value": "@concat('index.html?class=1;page=',dataset().Page,';team=6;template=results;type=batting')",
+						"value": "@concat('index.html?class=',dataset().class,';page=',dataset().Page,';team=6;template=results;type=batting')",
 						"type": "Expression"
 					}
 				}
@@ -271,7 +275,14 @@
 					{
 						"name": "Pagenumber",
 						"type": "SetVariable",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "Class in PL",
+								"dependencyConditions": [
+									"Skipped"
+								]
+							}
+						],
 						"userProperties": [],
 						"typeProperties": {
 							"variableName": "Page",
@@ -349,6 +360,10 @@
 											"parameters": {
 												"Page": {
 													"value": "@item()",
+													"type": "Expression"
+												},
+												"class": {
+													"value": "@variables('Class_in_PL')",
 													"type": "Expression"
 												}
 											}
@@ -437,6 +452,19 @@
 								}
 							]
 						}
+					},
+					{
+						"name": "Class in PL",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "Class_in_PL",
+							"value": {
+								"value": "@variables('Class')",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"policy": {
@@ -446,6 +474,12 @@
 				"variables": {
 					"Page": {
 						"type": "Array"
+					},
+					"Class": {
+						"type": "Array"
+					},
+					"Class_in_PL": {
+						"type": "String"
 					}
 				},
 				"annotations": []
@@ -454,6 +488,81 @@
 				"[concat(variables('factoryId'), '/datasets/WebTable1')]",
 				"[concat(variables('factoryId'), '/datasets/azblbds')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Crickinfo_WS_Class_PP')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Class of WS",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "Class",
+							"value": [
+								"1",
+								"2",
+								"3"
+							]
+						}
+					},
+					{
+						"name": "ForEach Class in array",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Class of WS",
+								"dependencyConditions": [
+									"Skipped"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('Class')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Execute WS_Page_PL",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "Crickinfo_webScrapping_page_pipe",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {}
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"Class": {
+						"type": "Array"
+					},
+					"Class_in_PL": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Crickinfo_webScrapping_page_pipe')]"
 			]
 		}
 	]
