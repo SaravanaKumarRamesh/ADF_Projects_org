@@ -9,6 +9,10 @@
 			"Page": {
 				"type": "string",
 				"defaultValue": "1"
+			},
+			"class": {
+				"type": "string",
+				"defaultValue": "1"
 			}
 		},
 		"annotations": [],
@@ -17,7 +21,7 @@
 		"typeProperties": {
 			"index": 0,
 			"path": {
-				"value": "@concat('index.html?class=1;page=',dataset().Page,';team=6;template=results;type=batting')",
+				"value": "@concat('index.html?class=',dataset().class,';page=',dataset().Page,';team=6;template=results;type=batting')",
 				"type": "Expression"
 			}
 		}

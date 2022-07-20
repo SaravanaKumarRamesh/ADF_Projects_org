@@ -5,7 +5,14 @@
 			{
 				"name": "Pagenumber",
 				"type": "SetVariable",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Class in PL",
+						"dependencyConditions": [
+							"Skipped"
+						]
+					}
+				],
 				"userProperties": [],
 				"typeProperties": {
 					"variableName": "Page",
@@ -83,6 +90,10 @@
 									"parameters": {
 										"Page": {
 											"value": "@item()",
+											"type": "Expression"
+										},
+										"class": {
+											"value": "@variables('Class_in_PL')",
 											"type": "Expression"
 										}
 									}
@@ -170,11 +181,30 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Class in PL",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Class_in_PL",
+					"value": {
+						"value": "@variables('Class')",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
 			"Page": {
 				"type": "Array"
+			},
+			"Class": {
+				"type": "Array"
+			},
+			"Class_in_PL": {
+				"type": "String"
 			}
 		},
 		"annotations": []

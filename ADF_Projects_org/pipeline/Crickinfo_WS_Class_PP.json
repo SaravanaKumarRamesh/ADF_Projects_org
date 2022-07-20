@@ -1,0 +1,65 @@
+{
+	"name": "Crickinfo_WS_Class_PP",
+	"properties": {
+		"activities": [
+			{
+				"name": "Class of WS",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Class",
+					"value": [
+						"1",
+						"2",
+						"3"
+					]
+				}
+			},
+			{
+				"name": "ForEach Class in array",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Class of WS",
+						"dependencyConditions": [
+							"Skipped"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('Class')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Execute WS_Page_PL",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "Crickinfo_webScrapping_page_pipe",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"Class": {
+				"type": "Array"
+			},
+			"Class_in_PL": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
