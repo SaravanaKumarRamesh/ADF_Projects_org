@@ -149,7 +149,8 @@
 									"parameters": {
 										"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
 									}
-								}
+								},
+								"firstRowOnly": false
 							}
 						},
 						{
