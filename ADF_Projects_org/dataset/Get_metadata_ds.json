@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Finaldata.csv",
+				"fileName": "Crickinfo_pagewebtable_Class=2_Page=6.csv",
 				"folderPath": "Input",
 				"container": "azure-adf-finaldata-input"
 			},
