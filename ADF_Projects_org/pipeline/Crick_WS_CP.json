@@ -166,7 +166,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"expression": {
-									"value": "@equals(activity('Lookup for blank files').output.firstRow,'kind')",
+									"value": "@less(activity('Lookup for blank files').output.count,1)",
 									"type": "Expression"
 								},
 								"ifFalseActivities": [
