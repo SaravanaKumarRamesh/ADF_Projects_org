@@ -30,7 +30,7 @@
 						"referenceName": "Get_metadata_ds",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
 				}
 			},
 			{
@@ -47,9 +47,22 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(activity('Lookup1').output.firstRow.Kind,'Element')",
+						"value": "@less(activity('Lookup1').output.count,1)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "activity failed",
+							"description": "Wrong condition",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"message": "Condition was false",
+								"errorCode": "101"
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Fail1",
@@ -58,7 +71,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"message": {
-									"value": "@concat('the value of output is',activity('Lookup1').output.firstRow.Kind )",
+									"value": "Condition was true",
 									"type": "Expression"
 								},
 								"errorCode": "100"
