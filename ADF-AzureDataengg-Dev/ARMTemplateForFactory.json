@@ -202,7 +202,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"expression": {
-											"value": "@equals(activity('Lookup for blank files').output.firstRow.Kind,'Element')",
+											"value": "@equals(activity('Lookup for blank files').output.firstRow,'kind')",
 											"type": "Expression"
 										},
 										"ifFalseActivities": [
