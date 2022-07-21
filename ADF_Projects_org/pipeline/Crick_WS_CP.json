@@ -105,7 +105,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"Filename": {
-											"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'Page=',item())",
+											"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
 											"type": "Expression"
 										}
 									}
@@ -166,7 +166,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"Filename": {
-											"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'Page=',item())",
+											"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
 											"type": "Expression"
 										}
 									}
