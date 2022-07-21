@@ -141,7 +141,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"Filename": {
-													"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'Page=',item())",
+													"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
 													"type": "Expression"
 												}
 											}
@@ -202,7 +202,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"Filename": {
-													"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'Page=',item())",
+													"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
 													"type": "Expression"
 												}
 											}
@@ -269,6 +269,92 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Crick_WS_MP')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Class of WS",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "Class",
+							"value": [
+								"1",
+								"2",
+								"3"
+							]
+						}
+					},
+					{
+						"name": "ForEach Class in array",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Class of WS",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('Class')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Execute WS_Page_PL",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "Crick_WS_CP",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"Class_CP": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"Class": {
+						"type": "Array"
+					},
+					"Class_in_PL": {
+						"type": "String"
+					},
+					"Class_from_PL": {
+						"type": "Array"
+					},
+					"Class_val_from_PP-CP": {
+						"type": "String"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Crick_WS_CP')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -303,12 +389,13 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "test.csv",
+						"fileName": "Finaldata.csv",
+						"folderPath": "Input",
 						"container": "azure-adf-finaldata-input"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
-					"firstRowAsHeader": false,
+					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
 				"schema": []
@@ -500,92 +587,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Crick_WS_PP')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Class of WS",
-						"type": "SetVariable",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "Class",
-							"value": [
-								"1",
-								"2",
-								"3"
-							]
-						}
-					},
-					{
-						"name": "ForEach Class in array",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Class of WS",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@variables('Class')",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Execute WS_Page_PL",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "Crick_WS_CP",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Class_CP": {
-												"value": "@item()",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"variables": {
-					"Class": {
-						"type": "Array"
-					},
-					"Class_in_PL": {
-						"type": "String"
-					},
-					"Class_from_PL": {
-						"type": "Array"
-					},
-					"Class_val_from_PP-CP": {
-						"type": "String"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Crick_WS_CP')]"
 			]
 		}
 	]
