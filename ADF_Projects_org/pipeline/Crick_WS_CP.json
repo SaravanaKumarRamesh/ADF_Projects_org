@@ -300,6 +300,9 @@
 				"type": "String"
 			}
 		},
+		"folder": {
+			"name": "Crickinfo_Dev"
+		},
 		"annotations": []
 	}
 }
