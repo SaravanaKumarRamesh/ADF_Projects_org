@@ -7,7 +7,72 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "Player",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Span",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Mat",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Inns",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NO",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Runs",
+				"type": "nvarchar"
+			},
+			{
+				"name": "HS",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Ave",
+				"type": "nvarchar"
+			},
+			{
+				"name": "BF",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SR",
+				"type": "nvarchar"
+			},
+			{
+				"name": "100",
+				"type": "nvarchar"
+			},
+			{
+				"name": "50",
+				"type": "nvarchar"
+			},
+			{
+				"name": "0",
+				"type": "nvarchar"
+			},
+			{
+				"name": "4s",
+				"type": "nvarchar"
+			},
+			{
+				"name": "6s",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Column1",
+				"type": "nvarchar"
+			}
+		],
 		"typeProperties": {
 			"schema": "dbo",
 			"table": "Crickinfo_webscrap_data"
