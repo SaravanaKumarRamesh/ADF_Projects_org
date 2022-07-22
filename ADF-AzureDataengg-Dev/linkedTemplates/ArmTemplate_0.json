@@ -534,10 +534,10 @@
 									"userProperties": [],
 									"typeProperties": {
 										"expression": {
-											"value": "@less(activity('Lookup for blank files').output.count,1)",
+											"value": "@greater(activity('Lookup for blank files').output.count,1)",
 											"type": "Expression"
 										},
-										"ifFalseActivities": [
+										"ifTrueActivities": [
 											{
 												"name": "Copy data from CSV to SQLDB Table",
 												"type": "Copy",
@@ -566,7 +566,6 @@
 														"type": "AzureSqlSink",
 														"writeBehavior": "insert",
 														"sqlWriterUseTableLock": false,
-														"tableOption": "autoCreate",
 														"disableMetricsCollection": false
 													},
 													"enableStaging": false,
