@@ -1,0 +1,6 @@
+{
+	"name": "MS-selfhosted-IR",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

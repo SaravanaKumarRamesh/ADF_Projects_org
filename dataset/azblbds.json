@@ -1,0 +1,33 @@
+{
+	"name": "azblbds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azblb_saravana__linkedservice_input",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat('Crickinfo_page',dataset().Filename,'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": "Input",
+				"container": "azure-adf-finaldata-input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
