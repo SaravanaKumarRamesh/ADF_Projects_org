@@ -191,7 +191,7 @@
 												"referenceName": "azblbds",
 												"type": "DatasetReference",
 												"parameters": {
-													"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
+													"Filename": "@concat('Crickinfo_webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
 												}
 											},
 											"enableLogging": false,
