@@ -8,7 +8,13 @@
 		"Azblb_saravana__linkedservice_input_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStorage_exceltestlink_input_connectionString": {
+			"value": ""
+		},
 		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"SQLServerSource_connectionString": {
 			"value": ""
 		},
 		"crickinfo_weblinkedservice_properties_typeProperties_url": {

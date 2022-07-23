@@ -11,9 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Azblb_saravana__linkedservice_input'"
 		},
+		"AzureBlobStorage_exceltestlink_input_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_exceltestlink_input'"
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"SQLServerSource_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQLServerSource'"
 		},
 		"crickinfo_weblinkedservice_properties_typeProperties_url": {
 			"type": "string",
@@ -341,7 +349,11 @@
 						"type": "String"
 					}
 				},
-				"annotations": []
+				"folder": {
+					"name": "Crick_info_Proj"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-07-22T05:50:21Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/WebTable1')]",
@@ -429,7 +441,11 @@
 						"type": "String"
 					}
 				},
-				"annotations": []
+				"folder": {
+					"name": "Crick_info_Proj"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-07-21T09:21:41Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/Crick_WS_CP')]"
@@ -525,7 +541,8 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
-				"annotations": []
+				"annotations": [],
+				"lastPublishTime": "2022-07-21T11:38:50Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Get_metadata_ds')]"
@@ -666,6 +683,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage_exceltestlink_input')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage_exceltestlink_input_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -683,6 +713,33 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/Azure-Integrationruntime')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQLServerSource')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"SQL_Servname": {
+						"type": "string"
+					},
+					"SQL_Dbname": {
+						"type": "string"
+					},
+					"SQL_User": {
+						"type": "string"
+					},
+					"SQL_User_pass": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('SQLServerSource_connectionString')]"
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/crickinfo_weblinkedservice')]",

@@ -11,9 +11,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'Azblb_saravana__linkedservice_input'"
 		},
+		"AzureBlobStorage_exceltestlink_input_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage_exceltestlink_input'"
+		},
 		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"SQLServerSource_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SQLServerSource'"
 		},
 		"crickinfo_weblinkedservice_properties_typeProperties_url": {
 			"type": "string",
@@ -56,6 +64,12 @@
 					},
 					"Azblb_saravana__linkedservice_input_connectionString": {
 						"value": "[parameters('Azblb_saravana__linkedservice_input_connectionString')]"
+					},
+					"AzureBlobStorage_exceltestlink_input_connectionString": {
+						"value": "[parameters('AzureBlobStorage_exceltestlink_input_connectionString')]"
+					},
+					"SQLServerSource_connectionString": {
+						"value": "[parameters('SQLServerSource_connectionString')]"
 					},
 					"AzureSqlDatabase1_connectionString": {
 						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
