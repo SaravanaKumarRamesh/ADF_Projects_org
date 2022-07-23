@@ -247,6 +247,8 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
+							"wildcardFolderPath": "Input",
+							"wildcardFileName": "Crickinfo_*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -280,7 +282,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"Filename": {
-								"value": "Crickinfo*.csv",
+								"value": "Crickinfo_*.csv",
 								"type": "Expression"
 							}
 						}
