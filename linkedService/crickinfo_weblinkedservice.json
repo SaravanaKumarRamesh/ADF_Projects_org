@@ -1,0 +1,16 @@
+{
+	"name": "crickinfo_weblinkedservice",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Web",
+		"typeProperties": {
+			"url": "https://stats.espncricinfo.com/ci/engine/stats/",
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "MS-selfhosted-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

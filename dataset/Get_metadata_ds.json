@@ -1,0 +1,25 @@
+{
+	"name": "Get_metadata_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azblb_saravana__linkedservice_input",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Crickinfo_pagewebtable_Class=1_Page=1.csv",
+				"folderPath": "Input",
+				"container": "azure-adf-finaldata-input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

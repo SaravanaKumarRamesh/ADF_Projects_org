@@ -1,5 +1,5 @@
 {
-	"name": "MS-vm-integrationruntime",
+	"name": "MS-selfhosted-IR",
 	"properties": {
 		"type": "SelfHosted"
 	}

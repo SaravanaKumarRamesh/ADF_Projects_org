@@ -1,0 +1,9 @@
+{
+	"name": "ADF-AzureDataengg-Dev",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "256e477e-e19c-4ab2-a489-50cd0afad4a0",
+		"tenantId": "e0793d39-0939-496d-b129-198edd916feb"
+	}
+}

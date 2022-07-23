@@ -1,0 +1,82 @@
+{
+	"name": "Crick_WS_MP",
+	"properties": {
+		"activities": [
+			{
+				"name": "Class of WS",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Class",
+					"value": [
+						"3",
+						"2",
+						"1"
+					]
+				}
+			},
+			{
+				"name": "ForEach Class in array",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Class of WS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('Class')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Execute WS_Page_PL",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "Crick_WS_CP",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"Class_CP": {
+										"value": "@item()",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"Class": {
+				"type": "Array"
+			},
+			"Class_in_PL": {
+				"type": "String"
+			},
+			"Class_from_PL": {
+				"type": "Array"
+			},
+			"Class_val_from_PP-CP": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Crick_info_Proj"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-07-21T09:21:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,310 @@
+{
+	"name": "Crick_WS_CP",
+	"properties": {
+		"activities": [
+			{
+				"name": "Pagenumber",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Class In PL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Page",
+					"value": [
+						"1",
+						"2",
+						"3",
+						"4",
+						"5",
+						"6",
+						"7"
+					]
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Pagenumber",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('Page')",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy from Webtable to CSV",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "WebSource"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "WebTable1",
+									"type": "DatasetReference",
+									"parameters": {
+										"Page": {
+											"value": "@item()",
+											"type": "Expression"
+										},
+										"class": {
+											"value": "@variables('Class_val_from_PP-CP')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "azblbds",
+									"type": "DatasetReference",
+									"parameters": {
+										"Filename": {
+											"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Lookup for blank files",
+							"type": "Lookup",
+							"dependsOn": [
+								{
+									"activity": "Copy from Webtable to CSV",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"dataset": {
+									"referenceName": "azblbds",
+									"type": "DatasetReference",
+									"parameters": {
+										"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
+									}
+								},
+								"firstRowOnly": false
+							}
+						},
+						{
+							"name": "If Condition1",
+							"type": "IfCondition",
+							"dependsOn": [
+								{
+									"activity": "Lookup for blank files",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"expression": {
+									"value": "@greater(activity('Lookup for blank files').output.count,1)",
+									"type": "Expression"
+								},
+								"ifFalseActivities": [
+									{
+										"name": "Delete1",
+										"type": "Delete",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"dataset": {
+												"referenceName": "azblbds",
+												"type": "DatasetReference",
+												"parameters": {
+													"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
+												}
+											},
+											"enableLogging": false,
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											}
+										}
+									}
+								],
+								"ifTrueActivities": [
+									{
+										"name": "Copy data from CSV to SQLDB Table",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "DelimitedTextSource",
+												"storeSettings": {
+													"type": "AzureBlobStorageReadSettings",
+													"recursive": true,
+													"enablePartitionDiscovery": false
+												},
+												"formatSettings": {
+													"type": "DelimitedTextReadSettings"
+												}
+											},
+											"sink": {
+												"type": "AzureSqlSink",
+												"writeBehavior": "insert",
+												"sqlWriterUseTableLock": false,
+												"disableMetricsCollection": false
+											},
+											"enableStaging": false,
+											"translator": {
+												"type": "TabularTranslator",
+												"typeConversion": true,
+												"typeConversionSettings": {
+													"allowDataTruncation": true,
+													"treatBooleanAsNumber": false
+												}
+											}
+										},
+										"inputs": [
+											{
+												"referenceName": "azblbds",
+												"type": "DatasetReference",
+												"parameters": {
+													"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "AzureSqlTable1",
+												"type": "DatasetReference"
+											}
+										]
+									}
+								]
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Class In PL",
+				"description": "Class Number from the Class Pipeline",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "Class_val_from_PP-CP",
+					"value": {
+						"value": "@pipeline().parameters.Class_CP",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Class_CP": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"Page": {
+				"type": "Array"
+			},
+			"Class": {
+				"type": "Array"
+			},
+			"Class_in_PL": {
+				"type": "String"
+			},
+			"Class_from_PL": {
+				"type": "Array"
+			},
+			"Class_val_from_PP-CP": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Crick_info_Proj"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-07-22T05:50:21Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

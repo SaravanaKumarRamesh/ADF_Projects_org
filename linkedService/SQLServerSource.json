@@ -20,10 +20,6 @@
 		"type": "SqlServer",
 		"typeProperties": {
 			"connectionString": "Integrated Security=False;Data Source=@{linkedService().SQL_Servname};Initial Catalog=@{linkedService().SQL_Dbname};User ID=@{linkedService().SQL_User};Password=@{linkedService().SQL_User_pass}"
-		},
-		"connectVia": {
-			"referenceName": "MS-vm-integrationruntime",
-			"type": "IntegrationRuntimeReference"
 		}
 	}
 }

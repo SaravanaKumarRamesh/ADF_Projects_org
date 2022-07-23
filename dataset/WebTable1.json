@@ -1,0 +1,30 @@
+{
+	"name": "WebTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "crickinfo_weblinkedservice",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Page": {
+				"type": "string",
+				"defaultValue": "1"
+			},
+			"class": {
+				"type": "string",
+				"defaultValue": "1"
+			}
+		},
+		"annotations": [],
+		"type": "WebTable",
+		"schema": [],
+		"typeProperties": {
+			"index": 0,
+			"path": {
+				"value": "@concat('index.html?class=',dataset().class,';page=',dataset().Page,';team=6;template=results;type=batting')",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
