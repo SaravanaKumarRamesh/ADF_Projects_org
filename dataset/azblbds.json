@@ -16,7 +16,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@concat('Crickinfo_page',dataset().Filename,'.csv')",
+					"value": "@dataset().Filename",
 					"type": "Expression"
 				},
 				"folderPath": "Input",
