@@ -280,7 +280,8 @@
 		],
 		"parameters": {
 			"Class_CP": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "3"
 			}
 		},
 		"variables": {
