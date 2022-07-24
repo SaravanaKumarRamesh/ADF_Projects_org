@@ -247,7 +247,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "Crickinfo_*.csv",
+							"wildcardFileName": "Crickinfo_*",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -257,7 +257,8 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "MergeFiles"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -293,7 +294,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"Filename": {
-								"value": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'))",
+								"value": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'),'.csv')",
 								"type": "Expression"
 							}
 						}
