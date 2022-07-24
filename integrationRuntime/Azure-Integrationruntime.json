@@ -16,7 +16,7 @@
 					"timeToLive": 5
 				},
 				"pipelineExternalComputeScaleProperties": {
-					"timeToLive": 60
+					"timeToLive": 30
 				}
 			}
 		},
