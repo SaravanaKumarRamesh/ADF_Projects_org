@@ -76,6 +76,146 @@
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "Player",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Player",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Span",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Span",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Mat",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Mat",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Inns",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Inns",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "NO",
+												"type": "String"
+											},
+											"sink": {
+												"name": "NO",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Runs",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Runs",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "HS",
+												"type": "String"
+											},
+											"sink": {
+												"name": "HS",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Ave",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Ave",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "BF"
+											},
+											"sink": {
+												"name": "BF",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "100",
+												"type": "String"
+											},
+											"sink": {
+												"name": "100",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "SR"
+											},
+											"sink": {
+												"name": "SR"
+											}
+										},
+										{
+											"source": {
+												"name": "50",
+												"type": "String"
+											},
+											"sink": {
+												"name": "50",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "0",
+												"type": "String"
+											},
+											"sink": {
+												"name": "0",
+												"type": "String",
+												"physicalType": "String"
+											}
+										}
+									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
