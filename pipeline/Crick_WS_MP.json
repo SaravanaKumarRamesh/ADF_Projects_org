@@ -56,6 +56,119 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Merge CSV Files",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "ForEach Class in array",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFileName": "Crickinfo_*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "azblbds",
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "*"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "azblbds",
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'),'.csv')"
+						}
+					}
+				]
+			},
+			{
+				"name": "Merged File to SQL DB",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Merge CSV Files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "azblbds",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"variables": {
