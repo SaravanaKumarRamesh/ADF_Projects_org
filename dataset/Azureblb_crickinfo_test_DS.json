@@ -1,0 +1,73 @@
+{
+	"name": "Azureblb_crickinfo_test_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlob_Storage_testlinkservice",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Crickinfo_In25ia SAan25ar25 Ti26e.csv",
+				"folderPath": "Input",
+				"container": "azure-adf-finaldata-input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Player",
+				"type": "String"
+			},
+			{
+				"name": "Span",
+				"type": "String"
+			},
+			{
+				"name": "Mat",
+				"type": "String"
+			},
+			{
+				"name": "Inns",
+				"type": "String"
+			},
+			{
+				"name": "NO",
+				"type": "String"
+			},
+			{
+				"name": "Runs",
+				"type": "String"
+			},
+			{
+				"name": "HS",
+				"type": "String"
+			},
+			{
+				"name": "Ave",
+				"type": "String"
+			},
+			{
+				"name": "100",
+				"type": "String"
+			},
+			{
+				"name": "50",
+				"type": "String"
+			},
+			{
+				"name": "0",
+				"type": "String"
+			},
+			{
+				"name": "Column1",
+				"type": "String"
+			}
+		]
+	}
+}

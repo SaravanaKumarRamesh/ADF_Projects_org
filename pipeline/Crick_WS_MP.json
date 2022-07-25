@@ -23,7 +23,7 @@
 					{
 						"activity": "Class of WS",
 						"dependencyConditions": [
-							"Succeeded"
+							"Skipped"
 						]
 					}
 				],
@@ -64,7 +64,7 @@
 					{
 						"activity": "ForEach Class in array",
 						"dependencyConditions": [
-							"Succeeded"
+							"Skipped"
 						]
 					}
 				],
@@ -104,6 +104,156 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Player",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Player",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Span",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Span",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Mat",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Mat",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Inns",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Inns",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NO",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "NO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Runs",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Runs",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "HS",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "HS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Ave",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Ave",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BF"
+								},
+								"sink": {
+									"name": "BF"
+								}
+							},
+							{
+								"source": {
+									"name": "SR"
+								},
+								"sink": {
+									"name": "SR"
+								}
+							},
+							{
+								"source": {
+									"name": "100",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "100",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "50",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "50",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "0",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "0",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -137,7 +287,7 @@
 					{
 						"activity": "Merge CSV Files",
 						"dependencyConditions": [
-							"Succeeded"
+							"Skipped"
 						]
 					}
 				],
