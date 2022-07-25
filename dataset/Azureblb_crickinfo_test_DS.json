@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "Crickinfo_In25ia SAan25ar25 Ti26e.csv",
 				"folderPath": "Input",
 				"container": "azure-adf-finaldata-input"
 			},
