@@ -203,22 +203,6 @@
 							},
 							{
 								"source": {
-									"name": "BF"
-								},
-								"sink": {
-									"name": "BF"
-								}
-							},
-							{
-								"source": {
-									"name": "SR"
-								},
-								"sink": {
-									"name": "SR"
-								}
-							},
-							{
-								"source": {
 									"name": "100",
 									"type": "String",
 									"physicalType": "String"
@@ -249,6 +233,18 @@
 								},
 								"sink": {
 									"name": "0",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Column1",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Column1",
 									"type": "String",
 									"physicalType": "String"
 								}
