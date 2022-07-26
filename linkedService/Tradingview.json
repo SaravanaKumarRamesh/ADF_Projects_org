@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "Web",
 		"typeProperties": {
-			"url": "https://in.tradingview.com/markets/stocks-india/market-movers-all-stocks/",
+			"url": "https://in.tradingview.com/markets/stocks-india/market-movers-large-cap/",
 			"authenticationType": "Anonymous"
 		},
 		"connectVia": {
