@@ -1,0 +1,93 @@
+{
+	"name": "Blobstorage_tradeinfo_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azureblb_Linkserice_azurekeyvalut",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Tarde_info.csv",
+				"folderPath": "Input",
+				"container": "azure-adf-finaldata-input"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Ticker",
+				"type": "String"
+			},
+			{
+				"name": "Price",
+				"type": "String"
+			},
+			{
+				"name": "Chg %",
+				"type": "String"
+			},
+			{
+				"name": " 1D3",
+				"type": "String"
+			},
+			{
+				"name": "Chg",
+				"type": "String"
+			},
+			{
+				"name": " 1D5",
+				"type": "String"
+			},
+			{
+				"name": "Technical Rating",
+				"type": "String"
+			},
+			{
+				"name": " 1D7",
+				"type": "String"
+			},
+			{
+				"name": "Vol",
+				"type": "String"
+			},
+			{
+				"name": " 1D9",
+				"type": "String"
+			},
+			{
+				"name": "Volume*price",
+				"type": "String"
+			},
+			{
+				"name": " 1D11",
+				"type": "String"
+			},
+			{
+				"name": "Mkt cap",
+				"type": "String"
+			},
+			{
+				"name": "P/E",
+				"type": "String"
+			},
+			{
+				"name": "EPS (TTM)",
+				"type": "String"
+			},
+			{
+				"name": "Employees",
+				"type": "String"
+			},
+			{
+				"name": "Sector",
+				"type": "String"
+			}
+		]
+	}
+}
