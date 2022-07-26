@@ -1,0 +1,17 @@
+{
+	"name": "Azureblb_Linkserice_azurekeyvalut",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyvalut_ADF_Linkedservice",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "Az-blbstrge-connstrng"
+			}
+		}
+	}
+}
