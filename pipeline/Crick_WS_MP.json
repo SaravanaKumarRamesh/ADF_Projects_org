@@ -23,7 +23,7 @@
 					{
 						"activity": "Class of WS",
 						"dependencyConditions": [
-							"Succeeded"
+							"Skipped"
 						]
 					}
 				],
@@ -56,6 +56,287 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Merge CSV Files",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "ForEach Class in array",
+						"dependencyConditions": [
+							"Skipped"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFileName": "Crickinfo_*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings",
+							"copyBehavior": "MergeFiles"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Player",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Player",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Span",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Span",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Mat",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Mat",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Inns",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Inns",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NO",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "NO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Runs",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Runs",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "HS",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "HS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Ave",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Ave",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "100",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "100",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "50",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "50",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "0",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "0",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Column1",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Column1",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "azblbds",
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "*"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "azblbds",
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'),'.csv')"
+						}
+					}
+				]
+			},
+			{
+				"name": "Merged File to SQL DB",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Merge CSV Files",
+						"dependencyConditions": [
+							"Skipped"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:10:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "azblbds",
+						"type": "DatasetReference",
+						"parameters": {
+							"Filename": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'),'.csv')"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"variables": {

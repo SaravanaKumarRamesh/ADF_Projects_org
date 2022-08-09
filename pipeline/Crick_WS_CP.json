@@ -76,6 +76,146 @@
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "Player",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Player",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Span",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Span",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Mat",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Mat",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Inns",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Inns",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "NO",
+												"type": "String"
+											},
+											"sink": {
+												"name": "NO",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Runs",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Runs",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "HS",
+												"type": "String"
+											},
+											"sink": {
+												"name": "HS",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "Ave",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Ave",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "BF"
+											},
+											"sink": {
+												"name": "BF",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "100",
+												"type": "String"
+											},
+											"sink": {
+												"name": "100",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "SR"
+											},
+											"sink": {
+												"name": "SR"
+											}
+										},
+										{
+											"source": {
+												"name": "50",
+												"type": "String"
+											},
+											"sink": {
+												"name": "50",
+												"type": "String",
+												"physicalType": "String"
+											}
+										},
+										{
+											"source": {
+												"name": "0",
+												"type": "String"
+											},
+											"sink": {
+												"name": "0",
+												"type": "String",
+												"physicalType": "String"
+											}
+										}
+									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
@@ -105,7 +245,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"Filename": {
-											"value": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
+											"value": "@concat('Crickinfo_webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
 											"type": "Expression"
 										}
 									}
@@ -147,7 +287,10 @@
 									"referenceName": "azblbds",
 									"type": "DatasetReference",
 									"parameters": {
-										"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
+										"Filename": {
+											"value": "@concat('Crickinfo_webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
+											"type": "Expression"
+										}
 									}
 								},
 								"firstRowOnly": false
@@ -188,7 +331,7 @@
 												"referenceName": "azblbds",
 												"type": "DatasetReference",
 												"parameters": {
-													"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
+													"Filename": "@concat('Crickinfo_webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
 												}
 											},
 											"enableLogging": false,
@@ -198,64 +341,6 @@
 												"enablePartitionDiscovery": false
 											}
 										}
-									}
-								],
-								"ifTrueActivities": [
-									{
-										"name": "Copy data from CSV to SQLDB Table",
-										"type": "Copy",
-										"dependsOn": [],
-										"policy": {
-											"timeout": "7.00:00:00",
-											"retry": 0,
-											"retryIntervalInSeconds": 30,
-											"secureOutput": false,
-											"secureInput": false
-										},
-										"userProperties": [],
-										"typeProperties": {
-											"source": {
-												"type": "DelimitedTextSource",
-												"storeSettings": {
-													"type": "AzureBlobStorageReadSettings",
-													"recursive": true,
-													"enablePartitionDiscovery": false
-												},
-												"formatSettings": {
-													"type": "DelimitedTextReadSettings"
-												}
-											},
-											"sink": {
-												"type": "AzureSqlSink",
-												"writeBehavior": "insert",
-												"sqlWriterUseTableLock": false,
-												"disableMetricsCollection": false
-											},
-											"enableStaging": false,
-											"translator": {
-												"type": "TabularTranslator",
-												"typeConversion": true,
-												"typeConversionSettings": {
-													"allowDataTruncation": true,
-													"treatBooleanAsNumber": false
-												}
-											}
-										},
-										"inputs": [
-											{
-												"referenceName": "azblbds",
-												"type": "DatasetReference",
-												"parameters": {
-													"Filename": "@concat('webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
-												}
-											}
-										],
-										"outputs": [
-											{
-												"referenceName": "AzureSqlTable1",
-												"type": "DatasetReference"
-											}
-										]
 									}
 								]
 							}
@@ -280,7 +365,8 @@
 		],
 		"parameters": {
 			"Class_CP": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "3"
 			}
 		},
 		"variables": {

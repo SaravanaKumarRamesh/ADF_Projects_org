@@ -1,24 +1,16 @@
 {
-	"name": "azblbds",
+	"name": "Blobstorage_tradeinfo_dataset",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Azblb_saravana__linkedservice_input",
+			"referenceName": "Azureblb_Linkserice_azurekeyvalut",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"Filename": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().Filename",
-					"type": "Expression"
-				},
+				"fileName": "Tarde_info.csv",
 				"folderPath": "Input",
 				"container": "azure-adf-finaldata-input"
 			},
@@ -29,66 +21,73 @@
 		},
 		"schema": [
 			{
-				"name": "Player",
+				"name": "Ticker",
 				"type": "String"
 			},
 			{
-				"name": "Span",
+				"name": "Price",
 				"type": "String"
 			},
 			{
-				"name": "Mat",
+				"name": "Chg %",
 				"type": "String"
 			},
 			{
-				"name": "Inns",
+				"name": " 1D3",
 				"type": "String"
 			},
 			{
-				"name": "NO",
+				"name": "Chg",
 				"type": "String"
 			},
 			{
-				"name": "Runs",
+				"name": " 1D5",
 				"type": "String"
 			},
 			{
-				"name": "HS",
+				"name": "Technical Rating",
 				"type": "String"
 			},
 			{
-				"name": "Ave",
+				"name": " 1D7",
 				"type": "String"
 			},
 			{
-				"name": "BF",
+				"name": "Vol",
 				"type": "String"
 			},
 			{
-				"name": "SR",
+				"name": " 1D9",
 				"type": "String"
 			},
 			{
-				"name": "100",
+				"name": "Volume*price",
 				"type": "String"
 			},
 			{
-				"name": "50",
+				"name": " 1D11",
 				"type": "String"
 			},
 			{
-				"name": "0",
+				"name": "Mkt cap",
 				"type": "String"
 			},
 			{
-				"name": "4s",
+				"name": "P/E",
 				"type": "String"
 			},
 			{
-				"name": "6s",
+				"name": "EPS (TTM)",
+				"type": "String"
+			},
+			{
+				"name": "Employees",
+				"type": "String"
+			},
+			{
+				"name": "Sector",
 				"type": "String"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

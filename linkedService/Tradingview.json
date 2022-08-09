@@ -1,0 +1,15 @@
+{
+	"name": "Tradingview",
+	"properties": {
+		"annotations": [],
+		"type": "Web",
+		"typeProperties": {
+			"url": "https://in.tradingview.com/markets/stocks-india/market-movers-large-cap/",
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "MS-selfhosted-IR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

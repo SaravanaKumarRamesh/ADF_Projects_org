@@ -1,0 +1,10 @@
+{
+	"name": "AzureKeyvalut_ADF_Linkedservice",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://Azure-adf-Keyvalut.vault.azure.net/"
+		}
+	}
+}

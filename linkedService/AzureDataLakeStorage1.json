@@ -1,0 +1,19 @@
+{
+	"name": "AzureDataLakeStorage1",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://azadfdatalakegen2.dfs.core.windows.net",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AzureKeyvalut_ADF_Linkedservice",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "ADFAzureDatalakegen2storageacc",
+				"secretVersion": "e1d2baf7dfdb4cde8e03e7637283a866"
+			}
+		}
+	}
+}

@@ -1,24 +1,15 @@
 {
-	"name": "azblbds",
+	"name": "Azureblb_crickinfo_test_DS",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Azblb_saravana__linkedservice_input",
+			"referenceName": "AzureBlob_Storage_testlinkservice",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"Filename": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().Filename",
-					"type": "Expression"
-				},
 				"folderPath": "Input",
 				"container": "azure-adf-finaldata-input"
 			},
@@ -61,14 +52,6 @@
 				"type": "String"
 			},
 			{
-				"name": "BF",
-				"type": "String"
-			},
-			{
-				"name": "SR",
-				"type": "String"
-			},
-			{
 				"name": "100",
 				"type": "String"
 			},
@@ -81,14 +64,9 @@
 				"type": "String"
 			},
 			{
-				"name": "4s",
-				"type": "String"
-			},
-			{
-				"name": "6s",
+				"name": "Column1",
 				"type": "String"
 			}
 		]
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
