@@ -1,0 +1,174 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-AzureDataengg-Dev"
+		},
+		"Azblb_saravana__linkedservice_input_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Azblb_saravana__linkedservice_input'"
+		},
+		"AzureBlob_Storage_testlinkservice_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlob_Storage_testlinkservice'"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
+		"AzSqlDb_Linkservice_KV_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "Azsqldb-key"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azadfdatalakegen2.dfs.core.windows.net"
+		},
+		"AzureKeyvalut_ADF_Linkedservice_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://Azure-adf-Keyvalut.vault.azure.net/"
+		},
+		"Azureblb_Linkserice_azurekeyvalut_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "Az-blbstrge-connstrng"
+		},
+		"LS_ADLS_Metadata_Json_Covid_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azadfdatalakegen2.dfs.core.windows.net"
+		},
+		"LS_CovidProject_BLB_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "Az-blbstrge-connstrng"
+		},
+		"LS_Covid_ECDwebsite_Project_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().sourceBaseURL}"
+		},
+		"LS_KV_CovidProject_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://Azure-adf-Keyvalut.vault.azure.net/"
+		},
+		"LS_adls_covidproject_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://azadfdatalakegen2.dfs.core.windows.net"
+		},
+		"Tradingview_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://in.tradingview.com/markets/stocks-india/market-movers-large-cap/"
+		},
+		"crickinfo_weblinkedservice_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stats.espncricinfo.com/ci/engine/stats/"
+		},
+		"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/e28292ad-5166-4e02-8b60-16a2151d18a5/resourceGroups/AzureDataEngg_Testresource1/providers/Microsoft.Sql/servers/azure-sql-adf-test"
+		},
+		"Azuresqldatabase_endpoint_properties_groupId": {
+			"type": "string",
+			"defaultValue": "sqlServer"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "ADF-AzureDataengg-Dev_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureBlob_Storage_testlinkservice_connectionString": {
+						"value": "[parameters('AzureBlob_Storage_testlinkservice_connectionString')]"
+					},
+					"Azblb_saravana__linkedservice_input_connectionString": {
+						"value": "[parameters('Azblb_saravana__linkedservice_input_connectionString')]"
+					},
+					"AzureKeyvalut_ADF_Linkedservice_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyvalut_ADF_Linkedservice_properties_typeProperties_baseUrl')]"
+					},
+					"LS_Covid_ECDwebsite_Project_properties_typeProperties_url": {
+						"value": "[parameters('LS_Covid_ECDwebsite_Project_properties_typeProperties_url')]"
+					},
+					"LS_KV_CovidProject_properties_typeProperties_baseUrl": {
+						"value": "[parameters('LS_KV_CovidProject_properties_typeProperties_baseUrl')]"
+					},
+					"AzSqlDb_Linkservice_KV_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('AzSqlDb_Linkservice_KV_properties_typeProperties_connectionString_secretName')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"Azureblb_Linkserice_azurekeyvalut_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azureblb_Linkserice_azurekeyvalut_properties_typeProperties_connectionString_secretName')]"
+					},
+					"LS_ADLS_Metadata_Json_Covid_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_Metadata_Json_Covid_properties_typeProperties_url')]"
+					},
+					"LS_CovidProject_BLB_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('LS_CovidProject_BLB_properties_typeProperties_connectionString_secretName')]"
+					},
+					"LS_adls_covidproject_properties_typeProperties_url": {
+						"value": "[parameters('LS_adls_covidproject_properties_typeProperties_url')]"
+					},
+					"Tradingview_properties_typeProperties_url": {
+						"value": "[parameters('Tradingview_properties_typeProperties_url')]"
+					},
+					"crickinfo_weblinkedservice_properties_typeProperties_url": {
+						"value": "[parameters('crickinfo_weblinkedservice_properties_typeProperties_url')]"
+					},
+					"Azuresqldatabase_endpoint_properties_privateLinkResourceId": {
+						"value": "[parameters('Azuresqldatabase_endpoint_properties_privateLinkResourceId')]"
+					},
+					"Azuresqldatabase_endpoint_properties_groupId": {
+						"value": "[parameters('Azuresqldatabase_endpoint_properties_groupId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "ADF-AzureDataengg-Dev_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'ADF-AzureDataengg-Dev_ArmTemplate_0')]"
+			]
+		}
+	]
+}

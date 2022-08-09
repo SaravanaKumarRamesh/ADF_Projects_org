@@ -1,0 +1,1848 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "ADF-AzureDataengg-Dev"
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Blobstorage_tradeinfo_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azureblb_Linkserice_azurekeyvalut",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Tarde_info.csv",
+						"folderPath": "Input",
+						"container": "azure-adf-finaldata-input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Ticker",
+						"type": "String"
+					},
+					{
+						"name": "Price",
+						"type": "String"
+					},
+					{
+						"name": "Chg %",
+						"type": "String"
+					},
+					{
+						"name": " 1D3",
+						"type": "String"
+					},
+					{
+						"name": "Chg",
+						"type": "String"
+					},
+					{
+						"name": " 1D5",
+						"type": "String"
+					},
+					{
+						"name": "Technical Rating",
+						"type": "String"
+					},
+					{
+						"name": " 1D7",
+						"type": "String"
+					},
+					{
+						"name": "Vol",
+						"type": "String"
+					},
+					{
+						"name": " 1D9",
+						"type": "String"
+					},
+					{
+						"name": "Volume*price",
+						"type": "String"
+					},
+					{
+						"name": " 1D11",
+						"type": "String"
+					},
+					{
+						"name": "Mkt cap",
+						"type": "String"
+					},
+					{
+						"name": "P/E",
+						"type": "String"
+					},
+					{
+						"name": "EPS (TTM)",
+						"type": "String"
+					},
+					{
+						"name": "Employees",
+						"type": "String"
+					},
+					{
+						"name": "Sector",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_DS_ADLS_Cases_sink')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "Processed/Cases and deaths",
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "country\tcountry_code\tcontinent\tpopulation\tindicator\tweekly_count\tyear_week\trate_14_day\tcumulative_count\tsource\tnote",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_DS_ADLS_Hospitaladminssions_proj')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "hospital_admissions.csv",
+						"folderPath": "hospital_admissions",
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": "\t",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "indicator",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "year_week",
+						"type": "String"
+					},
+					{
+						"name": "value",
+						"type": "String"
+					},
+					{
+						"name": "source",
+						"type": "String"
+					},
+					{
+						"name": "url",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_DS_ADLS_Processed_hospitaladmissions_Daily')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "Processed/Hospital admissions_daily",
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_DS_ADLS_Processed_hospitaladmissions_Weekly')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "Processed/Hospital admissions_Weekly",
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_DS_Casesanddeaths_ingestion')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "cases_deaths.csv",
+						"folderPath": "cases_deaths",
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": "\t",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "country_code",
+						"type": "String"
+					},
+					{
+						"name": "continent",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					},
+					{
+						"name": "indicator",
+						"type": "String"
+					},
+					{
+						"name": "weekly_count",
+						"type": "String"
+					},
+					{
+						"name": "year_week",
+						"type": "String"
+					},
+					{
+						"name": "rate_14_day",
+						"type": "String"
+					},
+					{
+						"name": "cumulative_count",
+						"type": "String"
+					},
+					{
+						"name": "source",
+						"type": "String"
+					},
+					{
+						"name": "note",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_DS_Dimdate')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "dim_date.csv",
+						"folderPath": "Dimdate",
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "date_key",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "year",
+						"type": "String"
+					},
+					{
+						"name": "month",
+						"type": "String"
+					},
+					{
+						"name": "day",
+						"type": "String"
+					},
+					{
+						"name": "day_name",
+						"type": "String"
+					},
+					{
+						"name": "day_of_year",
+						"type": "String"
+					},
+					{
+						"name": "week_of_month",
+						"type": "String"
+					},
+					{
+						"name": "week_of_year",
+						"type": "String"
+					},
+					{
+						"name": "month_name",
+						"type": "String"
+					},
+					{
+						"name": "year_month",
+						"type": "String"
+					},
+					{
+						"name": "year_week",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_CovidProject')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"sinkFileName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().sinkFileName",
+							"type": "Expression"
+						},
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": "\t",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_ADLS_ECDC_Metadata_Json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Metadata_Json_Covid",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "ecdc_file_list.json",
+						"folderPath": "Config",
+						"fileSystem": "covidproject"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"sourceBaseURL": {
+							"type": "string"
+						},
+						"sourceRelativeURL": {
+							"type": "string"
+						},
+						"sinkFileName": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Blb_CovidProject')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_CovidProject_BLB",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "tps00010.tsv.gz",
+						"container": "covid-project-container"
+					},
+					"columnDelimiter": "\t",
+					"compressionCodec": "gzip",
+					"compressionLevel": "Optimal",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_DF_Country_lookup_Covid')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_adls_covidproject",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "country_lookup.csv",
+						"folderPath": "Countrylookup",
+						"fileSystem": "covidproject"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "country_code_2_digit",
+						"type": "String"
+					},
+					{
+						"name": "country_code_3_digit",
+						"type": "String"
+					},
+					{
+						"name": "continent",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Get_metadata_ds')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azblb_saravana__linkedservice_input",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Crickinfo_pagewebtable_Class=1_Page=1.csv",
+						"folderPath": "Input",
+						"container": "azure-adf-finaldata-input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/WebTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "crickinfo_weblinkedservice",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Page": {
+						"type": "string",
+						"defaultValue": "1"
+					},
+					"class": {
+						"type": "string",
+						"defaultValue": "1"
+					}
+				},
+				"annotations": [],
+				"type": "WebTable",
+				"schema": [],
+				"typeProperties": {
+					"index": 0,
+					"path": {
+						"value": "@concat('index.html?class=',dataset().class,';page=',dataset().Page,';team=6;template=results;type=batting')",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/azblbds')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azblb_saravana__linkedservice_input",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Filename",
+							"type": "Expression"
+						},
+						"folderPath": "Input",
+						"container": "azure-adf-finaldata-input"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Player",
+						"type": "String"
+					},
+					{
+						"name": "Span",
+						"type": "String"
+					},
+					{
+						"name": "Mat",
+						"type": "String"
+					},
+					{
+						"name": "Inns",
+						"type": "String"
+					},
+					{
+						"name": "NO",
+						"type": "String"
+					},
+					{
+						"name": "Runs",
+						"type": "String"
+					},
+					{
+						"name": "HS",
+						"type": "String"
+					},
+					{
+						"name": "Ave",
+						"type": "String"
+					},
+					{
+						"name": "BF",
+						"type": "String"
+					},
+					{
+						"name": "SR",
+						"type": "String"
+					},
+					{
+						"name": "100",
+						"type": "String"
+					},
+					{
+						"name": "50",
+						"type": "String"
+					},
+					{
+						"name": "0",
+						"type": "String"
+					},
+					{
+						"name": "4s",
+						"type": "String"
+					},
+					{
+						"name": "6s",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "Azure-Integrationruntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Crick_WS_CP')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Pagenumber",
+						"type": "SetVariable",
+						"dependsOn": [
+							{
+								"activity": "Class In PL",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "Page",
+							"value": [
+								"1",
+								"2",
+								"3",
+								"4",
+								"5",
+								"6",
+								"7"
+							]
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Pagenumber",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('Page')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Copy from Webtable to CSV",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "WebSource"
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobStorageWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"mappings": [
+												{
+													"source": {
+														"name": "Player",
+														"type": "String"
+													},
+													"sink": {
+														"name": "Player",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "Span",
+														"type": "String"
+													},
+													"sink": {
+														"name": "Span",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "Mat",
+														"type": "String"
+													},
+													"sink": {
+														"name": "Mat",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "Inns",
+														"type": "String"
+													},
+													"sink": {
+														"name": "Inns",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "NO",
+														"type": "String"
+													},
+													"sink": {
+														"name": "NO",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "Runs",
+														"type": "String"
+													},
+													"sink": {
+														"name": "Runs",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "HS",
+														"type": "String"
+													},
+													"sink": {
+														"name": "HS",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "Ave",
+														"type": "String"
+													},
+													"sink": {
+														"name": "Ave",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "BF"
+													},
+													"sink": {
+														"name": "BF",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "100",
+														"type": "String"
+													},
+													"sink": {
+														"name": "100",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "SR"
+													},
+													"sink": {
+														"name": "SR"
+													}
+												},
+												{
+													"source": {
+														"name": "50",
+														"type": "String"
+													},
+													"sink": {
+														"name": "50",
+														"type": "String",
+														"physicalType": "String"
+													}
+												},
+												{
+													"source": {
+														"name": "0",
+														"type": "String"
+													},
+													"sink": {
+														"name": "0",
+														"type": "String",
+														"physicalType": "String"
+													}
+												}
+											],
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "WebTable1",
+											"type": "DatasetReference",
+											"parameters": {
+												"Page": {
+													"value": "@item()",
+													"type": "Expression"
+												},
+												"class": {
+													"value": "@variables('Class_val_from_PP-CP')",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "azblbds",
+											"type": "DatasetReference",
+											"parameters": {
+												"Filename": {
+													"value": "@concat('Crickinfo_webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								},
+								{
+									"name": "Lookup for blank files",
+									"type": "Lookup",
+									"dependsOn": [
+										{
+											"activity": "Copy from Webtable to CSV",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"dataset": {
+											"referenceName": "azblbds",
+											"type": "DatasetReference",
+											"parameters": {
+												"Filename": {
+													"value": "@concat('Crickinfo_webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())",
+													"type": "Expression"
+												}
+											}
+										},
+										"firstRowOnly": false
+									}
+								},
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [
+										{
+											"activity": "Lookup for blank files",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@greater(activity('Lookup for blank files').output.count,1)",
+											"type": "Expression"
+										},
+										"ifFalseActivities": [
+											{
+												"name": "Delete1",
+												"type": "Delete",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "7.00:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"dataset": {
+														"referenceName": "azblbds",
+														"type": "DatasetReference",
+														"parameters": {
+															"Filename": "@concat('Crickinfo_webtable_Class=',variables('Class_val_from_PP-CP'),'_Page=',item())"
+														}
+													},
+													"enableLogging": false,
+													"storeSettings": {
+														"type": "AzureBlobStorageReadSettings",
+														"recursive": true,
+														"enablePartitionDiscovery": false
+													}
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Class In PL",
+						"description": "Class Number from the Class Pipeline",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "Class_val_from_PP-CP",
+							"value": {
+								"value": "@pipeline().parameters.Class_CP",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Class_CP": {
+						"type": "string",
+						"defaultValue": "3"
+					}
+				},
+				"variables": {
+					"Page": {
+						"type": "Array"
+					},
+					"Class": {
+						"type": "Array"
+					},
+					"Class_in_PL": {
+						"type": "String"
+					},
+					"Class_from_PL": {
+						"type": "Array"
+					},
+					"Class_val_from_PP-CP": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Crick_info_Proj"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-07-23T12:56:29Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/WebTable1')]",
+				"[concat(variables('factoryId'), '/datasets/azblbds')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_Cases and Deaths')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DF_DS_Casesanddeaths_ingestion",
+								"type": "DatasetReference"
+							},
+							"name": "CasesanddeathsSRC"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_DF_Country_lookup_Covid",
+								"type": "DatasetReference"
+							},
+							"name": "CountryColumns"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DF_DS_ADLS_Cases_sink",
+								"type": "DatasetReference"
+							},
+							"name": "casesanddeathssink"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CountrycodesLookup"
+						},
+						{
+							"name": "removecolumns"
+						},
+						{
+							"name": "pivot1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          country as string,",
+						"          country_code as string,",
+						"          continent as string,",
+						"          population as integer,",
+						"          indicator as string,",
+						"          weekly_count as integer,",
+						"          year_week as string,",
+						"          rate_14_day as string,",
+						"          cumulative_count as string,",
+						"          source as string,",
+						"          note as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     limit: 10000,",
+						"     ignoreNoFilesFound: false) ~> CasesanddeathsSRC",
+						"source(output(",
+						"          country as string,",
+						"          country_code_2_digit as string,",
+						"          country_code_3_digit as string,",
+						"          continent as string,",
+						"          population as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> CountryColumns",
+						"CasesanddeathsSRC, CountryColumns lookup(CasesanddeathsSRC@country == CountryColumns@country,",
+						"     multiple: false,",
+						"     pickup: 'any',",
+						"     broadcast: 'auto')~> CountrycodesLookup",
+						"CountrycodesLookup select(mapColumn(",
+						"          country = CasesanddeathsSRC@country,",
+						"          country_code_2_digit,",
+						"          country_code_3_digit,",
+						"          population = CasesanddeathsSRC@population,",
+						"          indicator,",
+						"          weekly_count,",
+						"          year_week,",
+						"          cumulative_count,",
+						"          source",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> removecolumns",
+						"removecolumns pivot(groupBy(country,",
+						"          country_code_2_digit,",
+						"          country_code_3_digit,",
+						"          population,",
+						"          year_week,",
+						"          source),",
+						"     pivotBy(indicator),",
+						"     Count = sum(weekly_count),",
+						"     columnNaming: '$V_$N',",
+						"     lateral: true) ~> pivot1",
+						"pivot1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          {country     country_code     continent     population     indicator     weekly_count     year_week     rate_14_day     cumulative_count     source     note} as string",
+						"     ),",
+						"     partitionFileNames:['Processed_CasesandDeaths.csv'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> casesanddeathssink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DF_DS_Casesanddeaths_ingestion')]",
+				"[concat(variables('factoryId'), '/datasets/DS_DF_Country_lookup_Covid')]",
+				"[concat(variables('factoryId'), '/datasets/DF_DS_ADLS_Cases_sink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_Hospitaladmins')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DF_DS_ADLS_Hospitaladminssions_proj",
+								"type": "DatasetReference"
+							},
+							"name": "Hospitaladminsource"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_DF_Country_lookup_Covid",
+								"type": "DatasetReference"
+							},
+							"name": "DSCountryLookup"
+						},
+						{
+							"dataset": {
+								"referenceName": "DF_DS_Dimdate",
+								"type": "DatasetReference"
+							},
+							"name": "DateDimDS"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DF_DS_ADLS_Processed_hospitaladmissions_Daily",
+								"type": "DatasetReference"
+							},
+							"name": "Dailycasessink"
+						},
+						{
+							"dataset": {
+								"referenceName": "DF_DS_ADLS_Processed_hospitaladmissions_Weekly",
+								"type": "DatasetReference"
+							},
+							"name": "WeeklycasesSink"
+						}
+					],
+					"transformations": [
+						{
+							"name": "removeURLandrenamecdateandweek"
+						},
+						{
+							"name": "lookupcountry"
+						},
+						{
+							"name": "RemoveDupcolumnfrmLookup"
+						},
+						{
+							"name": "SplitbasedonIndicator"
+						},
+						{
+							"name": "DeriveYearweek"
+						},
+						{
+							"name": "MinandMaxDate"
+						},
+						{
+							"name": "Weeklydatawithminmax"
+						},
+						{
+							"name": "WeeklyPivot"
+						},
+						{
+							"name": "Dailydatawithminmax"
+						},
+						{
+							"name": "DailyPivot"
+						},
+						{
+							"name": "Reportedweekandcountrysort"
+						},
+						{
+							"name": "ReportedweekandcountryWeeklydata"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          country as string,",
+						"          indicator as string,",
+						"          date as string,",
+						"          year_week as string,",
+						"          value as integer,",
+						"          source as string,",
+						"          url as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Hospitaladminsource",
+						"source(output(",
+						"          country as string,",
+						"          country_code_2_digit as string,",
+						"          country_code_3_digit as string,",
+						"          continent as string,",
+						"          population as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> DSCountryLookup",
+						"source(output(",
+						"          date_key as string,",
+						"          date as string,",
+						"          year as string,",
+						"          month as string,",
+						"          day as string,",
+						"          day_name as string,",
+						"          day_of_year as string,",
+						"          week_of_month as string,",
+						"          week_of_year as string,",
+						"          month_name as string,",
+						"          year_month as string,",
+						"          year_week as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     limit: 2000,",
+						"     ignoreNoFilesFound: false) ~> DateDimDS",
+						"Hospitaladminsource select(mapColumn(",
+						"          country,",
+						"          indicator,",
+						"          Reported_date = date,",
+						"          Reported_year_week = year_week,",
+						"          value,",
+						"          source",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> removeURLandrenamecdateandweek",
+						"removeURLandrenamecdateandweek, DSCountryLookup lookup(removeURLandrenamecdateandweek@country == DSCountryLookup@country,",
+						"     multiple: false,",
+						"     pickup: 'first',",
+						"     asc(DSCountryLookup@country, false),",
+						"     broadcast: 'auto')~> lookupcountry",
+						"lookupcountry select(mapColumn(",
+						"          country = removeURLandrenamecdateandweek@country,",
+						"          country_code_2_digit,",
+						"          country_code_3_digit,",
+						"          indicator,",
+						"          Reported_date,",
+						"          Reported_year_week,",
+						"          value,",
+						"          population,",
+						"          source",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> RemoveDupcolumnfrmLookup",
+						"RemoveDupcolumnfrmLookup split(indicator == 'Daily hospital occupancy' || indicator == 'Daily ICU occupancy',",
+						"     disjoint: false) ~> SplitbasedonIndicator@(Dailycases, Weeklycases)",
+						"DateDimDS derive(Derived_yearweek = year+'-W'+lpad(week_of_year, 2, '0')) ~> DeriveYearweek",
+						"DeriveYearweek aggregate(groupBy(Derived_yearweek),",
+						"     Week_startdate = min(date),",
+						"          Week_enddate = max(date)) ~> MinandMaxDate",
+						"SplitbasedonIndicator@Weeklycases, MinandMaxDate join(Reported_year_week == Derived_yearweek,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> Weeklydatawithminmax",
+						"Weeklydatawithminmax pivot(groupBy(country,",
+						"          country_code_2_digit,",
+						"          country_code_3_digit,",
+						"          Reported_year_week,",
+						"          population,",
+						"          Week_startdate,",
+						"          Week_enddate,",
+						"          source),",
+						"     pivotBy(indicator),",
+						"     Count = sum(value),",
+						"     columnNaming: '$N$V',",
+						"     lateral: true,",
+						"     partitionBy('hash', 1)) ~> WeeklyPivot",
+						"SplitbasedonIndicator@Dailycases, MinandMaxDate join(Reported_year_week == Derived_yearweek,",
+						"     joinType:'inner',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> Dailydatawithminmax",
+						"Dailydatawithminmax pivot(groupBy(country,",
+						"          country_code_2_digit,",
+						"          country_code_3_digit,",
+						"          Reported_date,",
+						"          Reported_year_week,",
+						"          Week_startdate,",
+						"          Week_enddate,",
+						"          population,",
+						"          source),",
+						"     pivotBy(indicator),",
+						"     Count = sum(value),",
+						"     columnNaming: '$V_$N',",
+						"     lateral: true) ~> DailyPivot",
+						"DailyPivot sort(asc(Reported_year_week, false),",
+						"     asc(country, false)) ~> Reportedweekandcountrysort",
+						"WeeklyPivot sort(asc(Reported_year_week, true),",
+						"     asc(country, true)) ~> ReportedweekandcountryWeeklydata",
+						"Reportedweekandcountrysort sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['Hospital_admissions_Daily.csv'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> Dailycasessink",
+						"ReportedweekandcountryWeeklydata sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     partitionFileNames:['Hospital_admissions_weekly.csv'],",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     partitionBy('hash', 1)) ~> WeeklycasesSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DF_DS_ADLS_Hospitaladminssions_proj')]",
+				"[concat(variables('factoryId'), '/datasets/DS_DF_Country_lookup_Covid')]",
+				"[concat(variables('factoryId'), '/datasets/DF_DS_Dimdate')]",
+				"[concat(variables('factoryId'), '/datasets/DF_DS_ADLS_Processed_hospitaladmissions_Daily')]",
+				"[concat(variables('factoryId'), '/datasets/DF_DS_ADLS_Processed_hospitaladmissions_Weekly')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Crick_WS_MP')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Class of WS",
+						"type": "SetVariable",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"variableName": "Class",
+							"value": [
+								"3",
+								"2",
+								"1"
+							]
+						}
+					},
+					{
+						"name": "ForEach Class in array",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Class of WS",
+								"dependencyConditions": [
+									"Skipped"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@variables('Class')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Execute WS_Page_PL",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "Crick_WS_CP",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"Class_CP": {
+												"value": "@item()",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Merge CSV Files",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "ForEach Class in array",
+								"dependencyConditions": [
+									"Skipped"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": "Crickinfo_*",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "MergeFiles"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"dataIntegrationUnits": 2,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Player",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Player",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Span",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Span",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Mat",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Mat",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Inns",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Inns",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "NO",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "NO",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Runs",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Runs",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "HS",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "HS",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Ave",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Ave",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "100",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "100",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "50",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "50",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "0",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "0",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Column1",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Column1",
+											"type": "String",
+											"physicalType": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "azblbds",
+								"type": "DatasetReference",
+								"parameters": {
+									"Filename": "*"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "azblbds",
+								"type": "DatasetReference",
+								"parameters": {
+									"Filename": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'),'.csv')"
+								}
+							}
+						]
+					},
+					{
+						"name": "Merged File to SQL DB",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Merge CSV Files",
+								"dependencyConditions": [
+									"Skipped"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"dataIntegrationUnits": 2,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "azblbds",
+								"type": "DatasetReference",
+								"parameters": {
+									"Filename": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'),'.csv')"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"Class": {
+						"type": "Array"
+					},
+					"Class_in_PL": {
+						"type": "String"
+					},
+					"Class_from_PL": {
+						"type": "Array"
+					},
+					"Class_val_from_PP-CP": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "Crick_info_Proj"
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-07-23T12:56:30Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/azblbds')]",
+				"[concat(variables('factoryId'), '/pipelines/Crick_WS_CP')]"
+			]
+		}
+	]
+}
