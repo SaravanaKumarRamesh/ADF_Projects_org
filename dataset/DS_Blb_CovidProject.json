@@ -1,28 +1,21 @@
 {
-	"name": "azblbds",
+	"name": "DS_Blb_CovidProject",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Azblb_saravana__linkedservice_input",
+			"referenceName": "LS_CovidProject_BLB",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"Filename": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@concat('Crickinfo_page',dataset().Filename,'.csv')",
-					"type": "Expression"
-				},
-				"folderPath": "Input",
-				"container": "azure-adf-finaldata-input"
+				"fileName": "tps00010.tsv.gz",
+				"container": "covid-project-container"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": "\t",
+			"compressionCodec": "gzip",
+			"compressionLevel": "Optimal",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""

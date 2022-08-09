@@ -1,0 +1,11 @@
+{
+	"name": "LS_KV_CovidProject",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://Azure-adf-Keyvalut.vault.azure.net/"
+		}
+	}
+}

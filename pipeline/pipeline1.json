@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Lookup1",
+				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -20,57 +20,69 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "Crickinfo_*.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
 						}
 					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings",
-							"copyBehavior": "MergeFiles"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
+					"dataset": {
+						"referenceName": "Get_metadata_ds",
+						"type": "DatasetReference"
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "If Condition1",
+				"type": "IfCondition",
+				"dependsOn": [
 					{
-						"referenceName": "azblbds",
-						"type": "DatasetReference",
-						"parameters": {
-							"Filename": "*"
-						}
+						"activity": "Lookup1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
-				"outputs": [
-					{
-						"referenceName": "azblbds",
-						"type": "DatasetReference",
-						"parameters": {
-							"Filename": "@concat('Crickinfo_',convertFromUtc(utcNow(),'UTC','India Standard Time'))"
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@less(activity('Lookup1').output.count,1)",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "activity failed",
+							"description": "Wrong condition",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"message": "Condition was false",
+								"errorCode": "101"
+							}
 						}
-					}
-				]
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Fail1",
+							"type": "Fail",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"message": {
+									"value": "Condition was true",
+									"type": "Expression"
+								},
+								"errorCode": "100"
+							}
+						}
+					]
+				}
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2022-07-21T11:38:50Z"
+		"lastPublishTime": "2022-07-23T12:56:27Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }

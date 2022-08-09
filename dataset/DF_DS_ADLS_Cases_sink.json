@@ -1,0 +1,29 @@
+{
+	"name": "DF_DS_ADLS_Cases_sink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adls_covidproject",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Processed/Cases and deaths",
+				"fileSystem": "covidproject"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "country\tcountry_code\tcontinent\tpopulation\tindicator\tweekly_count\tyear_week\trate_14_day\tcumulative_count\tsource\tnote",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

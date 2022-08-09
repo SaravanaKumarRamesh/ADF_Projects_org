@@ -1,0 +1,24 @@
+{
+	"name": "DF_DS_ADLS_Processed_hospitaladmissions_Weekly",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_adls_covidproject",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "Processed/Hospital admissions_Weekly",
+				"fileSystem": "covidproject"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,112 @@
+{
+	"name": "DF_Cases and Deaths",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DF_DS_Casesanddeaths_ingestion",
+						"type": "DatasetReference"
+					},
+					"name": "CasesanddeathsSRC"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_DF_Country_lookup_Covid",
+						"type": "DatasetReference"
+					},
+					"name": "CountryColumns"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DF_DS_ADLS_Cases_sink",
+						"type": "DatasetReference"
+					},
+					"name": "casesanddeathssink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "CountrycodesLookup"
+				},
+				{
+					"name": "removecolumns"
+				},
+				{
+					"name": "pivot1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          country as string,",
+				"          country_code as string,",
+				"          continent as string,",
+				"          population as integer,",
+				"          indicator as string,",
+				"          weekly_count as integer,",
+				"          year_week as string,",
+				"          rate_14_day as string,",
+				"          cumulative_count as string,",
+				"          source as string,",
+				"          note as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     limit: 10000,",
+				"     ignoreNoFilesFound: false) ~> CasesanddeathsSRC",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CountryColumns",
+				"CasesanddeathsSRC, CountryColumns lookup(CasesanddeathsSRC@country == CountryColumns@country,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> CountrycodesLookup",
+				"CountrycodesLookup select(mapColumn(",
+				"          country = CasesanddeathsSRC@country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population = CasesanddeathsSRC@population,",
+				"          indicator,",
+				"          weekly_count,",
+				"          year_week,",
+				"          cumulative_count,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removecolumns",
+				"removecolumns pivot(groupBy(country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population,",
+				"          year_week,",
+				"          source),",
+				"     pivotBy(indicator),",
+				"     Count = sum(weekly_count),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> pivot1",
+				"pivot1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {country     country_code     continent     population     indicator     weekly_count     year_week     rate_14_day     cumulative_count     source     note} as string",
+				"     ),",
+				"     partitionFileNames:['Processed_CasesandDeaths.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> casesanddeathssink"
+			]
+		}
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"name": "LS_adls_covidproject",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://azadfdatalakegen2.dfs.core.windows.net",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_KV_CovidProject",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "ADFAzureDatalakegen2storageacc"
+			}
+		}
+	}
+}
